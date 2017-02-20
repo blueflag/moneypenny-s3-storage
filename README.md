@@ -20,7 +20,7 @@ Moneypenny acts as an authentication service that offers multiple authentication
 
 [Sample Implementation Code](https://github.com/blueflag/moneypenny/tree/master/samples/sample-server)
 
-```
+```javascript
 var s3MoneyPennyStore = require('moneypenny-s3-storage')({
     bucket: 'TEST-BUCKET'
 })
