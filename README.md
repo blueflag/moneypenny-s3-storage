@@ -19,3 +19,14 @@ Moneypenny acts as an authentication service that offers multiple authentication
 ## Sample Useage
 
 [Sample Implementation Code](https://github.com/blueflag/moneypenny/tree/master/samples/sample-server)
+
+```
+var s3MoneyPennyStore = require('moneypenny-s3-storage')({
+    bucket: 'TEST-BUCKET'
+})
+var moneypennyServer = require('moneypenny')({
+    storageProvider: s3MoneyPennyStore,
+    loginUrl: '/login.html',
+    secretOrPrivateKey: 'top_secret'
+});
+```
