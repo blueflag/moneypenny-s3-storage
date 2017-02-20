@@ -1,7 +1,7 @@
 var AWS = require('aws-sdk');
 var s3 = new AWS.S3();
 
-function get(bucket: String, id: String){
+function get(bucket, id){
     return new Promise((resolve, reject) => {
         s3.getObject({
             Bucket: bucket,
@@ -16,7 +16,7 @@ function get(bucket: String, id: String){
     })
 }
 
-function put(bucket: String, id: String, data){
+function put(bucket, id, data){
     return new Promise((resolve, reject) => {
         s3.putObject({
             Bucket: bucket,
@@ -32,7 +32,7 @@ function put(bucket: String, id: String, data){
     })
 }
 
-function remove(bucket: String, id){
+function remove(bucket, id){
     return new Promise((resolve, reject) => {
         s3.deleteObject({
             Bucket: bucket,
@@ -51,7 +51,7 @@ function remove(bucket: String, id){
  * @param prefix {String} prefix at the start of the collection.
  *
  */
-function tokenStore(prefix: String, bucket: String){
+function tokenStore(prefix, bucket){
     return{
         save: function(refreshToken){
             return Promise.resolve(refreshToken)
