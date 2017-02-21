@@ -1,4 +1,5 @@
 var AWS = require('aws-sdk');
+var uniqid = require('uniqid');
 var s3 = new AWS.S3();
 
 function get(bucket, id){
@@ -21,7 +22,7 @@ function put(bucket, id, data){
         s3.putObject({
             Bucket: bucket,
             Key: id,
-            Body: JSON.stringify(client)
+            Body: JSON.stringify(data)
         }
         ,(err, data) => {
             if(err){
@@ -112,7 +113,10 @@ module.exports = function(options){
         tokenStore: tokenStore('token', bucket),
         userStore: {
             save: (user) => {
-                return put(bucket, `users/${user.id}`, user)
+                if(!user._id){
+                    user._id = uniqid()
+                }
+                return put(bucket, `users/${user._id}`, user)
             },
             fetchById: (userId) => {
                 return get(bucket, `user/${userId}`);

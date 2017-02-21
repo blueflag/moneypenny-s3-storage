@@ -9,6 +9,7 @@
   "author": "Paul Esson",
   "license": "ISC",
   "dependencies": {
-    "aws-sdk": "^2.16.0"
+    "aws-sdk": "^2.16.0",
+    "uniqid": "^4.1.1"
   }
 }
