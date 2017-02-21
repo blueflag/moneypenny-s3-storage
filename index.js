@@ -12,7 +12,7 @@ function get(bucket, id){
             if(err){
                 return reject(err);
             }
-            else resolve(JSON.parse(data));
+            else resolve(JSON.parse(data.Body));
         });
     })
 }
@@ -24,7 +24,7 @@ function put(bucket, id, data){
             Key: id,
             Body: JSON.stringify(data)
         }
-        ,(err, data) => {
+        ,(err) => {
             if(err){
                 return reject(err);
             }
@@ -39,7 +39,7 @@ function remove(bucket, id){
             Bucket: bucket,
             Key: id
         }
-        ,(err, data) => {
+        ,(err) => {
             if(err){
                 return reject(err);
             }
@@ -92,21 +92,21 @@ module.exports = function(options){
     return {
         clientStore: {
             createClient: (client) => {
-                return put(bucket, `clients/${client.id}`, client)
+                return put(bucket, `client/${client.id}`, client)
             },
             fetchById: (clientId) => {
-                return get(bucket, `clients/${clientId}`);
+                return get(bucket, `client/${clientId}`);
             }
         },
         codeStore: {
             save: (oauth2Code) => {
-                return put(bucket, `codes/${oauth2Code.code}`, oauth2Code);
+                return put(bucket, `code/${oauth2Code.code}`, oauth2Code);
             },
             fetchByCode: (code) => {
-                return get(bucket, `codes/${code}`);
+                return get(bucket, `code/${code}`);
             },
             removeByCode: (code) => {
-                return remove(bucket, `codes/${code}`);
+                return remove(bucket, `code/${code}`);
             }
         },
         refreshTokenStore: tokenStore('refresh-token', bucket),
@@ -116,7 +116,8 @@ module.exports = function(options){
                 if(!user._id){
                     user._id = uniqid()
                 }
-                return put(bucket, `users/${user._id}`, user)
+                console.log(user._id);
+                return put(bucket, `user/${user._id}`, user)
             },
             fetchById: (userId) => {
                 return get(bucket, `user/${userId}`);
